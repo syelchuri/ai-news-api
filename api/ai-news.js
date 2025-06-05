@@ -1,61 +1,50 @@
 import { XMLParser } from "fast-xml-parser";
 
-const sources = [
+const SOURCES = [
   {
-    id: "microsoft",
     name: "Microsoft AI Blog",
-    rss: "https://blogs.microsoft.com/ai/feed/"
+    url: "https://blogs.microsoft.com/ai/feed/",
   },
   {
-    id: "openai",
     name: "OpenAI Blog",
-    rss: "https://openai.com/feed.xml"
+    url: "https://openai.com/blog/rss.xml",
   },
   {
-    id: "bensbites",
     name: "Ben's Bites",
-    rss: "https://www.bensbites.co/rss"
+    url: "https://www.bensbites.co/rss",
   },
   {
-    id: "therundown",
     name: "The Rundown AI",
-    rss: "https://www.therundown.ai/feed"
+    url: "https://therundown.ai/feed",
   },
   {
-    id: "huggingface",
     name: "Hugging Face Blog",
-    rss: "https://huggingface.co/blog/rss.xml"
+    url: "https://huggingface.co/blog/rss.xml",
   },
   {
-    id: "deepmind",
     name: "DeepMind Blog",
-    rss: "https://deepmind.google/feed.xml"
+    url: "https://www.deepmind.com/blog/rss.xml",
   },
   {
-    id: "venturebeat",
     name: "VentureBeat AI",
-    rss: "https://venturebeat.com/category/ai/feed/"
+    url: "https://venturebeat.com/category/ai/feed/",
   },
   {
-    id: "lennysnewsletter",
     name: "Lenny’s Newsletter",
-    rss: "https://www.lennysnewsletter.com/feed"
+    url: "https://www.lennysnewsletter.com/feed",
   },
   {
-    id: "productled",
-    name: "Product-Led",
-    rss: "https://productled.com/blog/rss/"
+    name: "Product-Led Blog",
+    url: "https://productled.com/blog/rss.xml",
   },
   {
-    id: "productcoalition",
     name: "Product Coalition",
-    rss: "https://productcoalition.com/feed"
+    url: "https://productcoalition.com/feed",
   },
   {
-    id: "intercom",
     name: "Inside Intercom",
-    rss: "https://www.intercom.com/blog/feed/"
-  }
+    url: "https://www.intercom.com/blog/feed/",
+  },
 ];
 
 export default async function handler(req, res) {
