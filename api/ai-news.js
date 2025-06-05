@@ -38,77 +38,41 @@ const SOURCES = [
     url: "https://towardsdatascience.com/feed/tagged/artificial-intelligence",
   },
   {
-    name: "MIT Technology Review - AI",
+    name: "MIT Technology Review",
     url: "https://www.technologyreview.com/feed/",
   }
 ];
 
 export default async function handler(req, res) {
-  // Read 'sources' query parameter (comma-separated source IDs)
-  const { sources } = req.query;
+  const parser = new XMLParser();
+  const allArticles = [];
 
-  // Filter trusted sources based on query or use all if none specified
-  let selectedSources;
-  if (sources) {
-    const requested = sources.split(",").map(s => s.trim().toLowerCase());
-    selectedSources = SOURCES.filter(src => requested.includes(src.id));
-  } else {
-    selectedSources = SOURCES;
-  }
-
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_"
-  });
-
-  try {
-    let combinedNews = [];
-
-    for (const source of selectedSources) {
+  for (const source of SOURCES) {
+    try {
       const response = await fetch(source.url);
-      const xmlText = await response.text();
-      const json = parser.parse(xmlText);
-
-      // Extract news items from common RSS/Atom structures
-      const items = json?.rss?.channel?.item || json?.feed?.entry || [];
-
-      let newsItems = [];
+      const text = await response.text();
+      const json = parser.parse(text);
+      const items = json?.rss?.channel?.item;
 
       if (Array.isArray(items)) {
-        newsItems = items.map(item => ({
+        const simplified = items.slice(0, 3).map(item => ({
           title: item.title,
-          link: item.link?.href || item.link,
-          pubDate: item.pubDate || item.published || null
+          link: item.link,
+          source: source.name,
+          pubDate: item.pubDate || "",
         }));
-      } else if (typeof items === "object" && items !== null) {
-        newsItems = [{
-          title: items.title,
-          link: items.link?.href || items.link,
-          pubDate: items.pubDate || items.published || null
-        }];
+        allArticles.push(...simplified);
       }
-
-      combinedNews = combinedNews.concat(newsItems);
+    } catch (error) {
+      console.warn(`Failed to fetch from ${source.name}:`, error.message);
     }
-
-    // Sort combined news by publication date, newest first
-    combinedNews.sort((a, b) => {
-      const dateA = a.pubDate ? new Date(a.pubDate) : 0;
-      const dateB = b.pubDate ? new Date(b.pubDate) : 0;
-      return dateB - dateA;
-    });
-
-    // Pick top 5 news items
-    const topNews = combinedNews.slice(0, 5).map(item => ({
-      title: item.title,
-      link: item.link
-    }));
-
-    // Allow cross-origin requests (CORS)
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.status(200).json(topNews);
-  } catch (error) {
-    console.error("Error fetching or parsing news:", error);
-    res.status(500).json({ error: "Failed to fetch news" });
   }
+
+  // Sort by date (optional but useful)
+  const sortedArticles = allArticles
+    .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate))
+    .slice(0, 10); // Limit to top 10 articles
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.status(200).json(sortedArticles);
 }
