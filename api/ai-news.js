@@ -32,6 +32,26 @@ const SOURCES = [
   {
     name: "Mind the Product",
     url: "https://www.mindtheproduct.com/feed/",
+  },
+  {
+  name: "SVPG (Silicon Valley Product Group)",
+  url: "https://www.svpg.com/articles/feed/"
+  },
+  {
+    name: "Product Coalition",
+    url: "https://productcoalition.com/feed"
+  },
+  {
+    name: "Department of Product",
+    url: "https://www.departmentofproduct.com/feed/"
+  },
+  {
+    name: "Inside AI (Newsletter)",
+    url: "https://www.inside.com/feeds/inside-ai"
+  },
+  {
+    name: "Product Management Today",
+    url: "https://www.productmanagementtoday.com/rss"
   }
 ];
 
