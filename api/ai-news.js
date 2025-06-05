@@ -1,11 +1,61 @@
 import { XMLParser } from "fast-xml-parser";
 
-const SOURCES = [
-  { id: "google", url: "https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US:en" },
-  { id: "venturebeat", url: "https://venturebeat.com/category/ai/feed/" },
-  { id: "microsoft", url: "https://blogs.microsoft.com/ai/feed/" },
-  { id: "techcrunch", url: "https://techcrunch.com/tag/artificial-intelligence/feed/" },
-  { id: "theverge", url: "https://www.theverge.com/artificial-intelligence/rss/index.xml" }
+const sources = [
+  {
+    id: "microsoft",
+    name: "Microsoft AI Blog",
+    rss: "https://blogs.microsoft.com/ai/feed/"
+  },
+  {
+    id: "openai",
+    name: "OpenAI Blog",
+    rss: "https://openai.com/feed.xml"
+  },
+  {
+    id: "bensbites",
+    name: "Ben's Bites",
+    rss: "https://www.bensbites.co/rss"
+  },
+  {
+    id: "therundown",
+    name: "The Rundown AI",
+    rss: "https://www.therundown.ai/feed"
+  },
+  {
+    id: "huggingface",
+    name: "Hugging Face Blog",
+    rss: "https://huggingface.co/blog/rss.xml"
+  },
+  {
+    id: "deepmind",
+    name: "DeepMind Blog",
+    rss: "https://deepmind.google/feed.xml"
+  },
+  {
+    id: "venturebeat",
+    name: "VentureBeat AI",
+    rss: "https://venturebeat.com/category/ai/feed/"
+  },
+  {
+    id: "lennysnewsletter",
+    name: "Lenny’s Newsletter",
+    rss: "https://www.lennysnewsletter.com/feed"
+  },
+  {
+    id: "productled",
+    name: "Product-Led",
+    rss: "https://productled.com/blog/rss/"
+  },
+  {
+    id: "productcoalition",
+    name: "Product Coalition",
+    rss: "https://productcoalition.com/feed"
+  },
+  {
+    id: "intercom",
+    name: "Inside Intercom",
+    rss: "https://www.intercom.com/blog/feed/"
+  }
 ];
 
 export default async function handler(req, res) {
