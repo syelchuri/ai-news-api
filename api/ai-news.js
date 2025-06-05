@@ -6,45 +6,41 @@ const SOURCES = [
     url: "https://blogs.microsoft.com/ai/feed/",
   },
   {
+    name: "Azure AI Blog",
+    url: "https://techcommunity.microsoft.com/gxcuf89792/rss/ai",
+  },
+  {
     name: "OpenAI Blog",
     url: "https://openai.com/blog/rss.xml",
-  },
-  {
-    name: "Ben's Bites",
-    url: "https://www.bensbites.co/rss",
-  },
-  {
-    name: "The Rundown AI",
-    url: "https://therundown.ai/feed",
-  },
-  {
-    name: "Hugging Face Blog",
-    url: "https://huggingface.co/blog/rss.xml",
   },
   {
     name: "DeepMind Blog",
     url: "https://www.deepmind.com/blog/rss.xml",
   },
   {
-    name: "VentureBeat AI",
-    url: "https://venturebeat.com/category/ai/feed/",
+    name: "Google AI Blog",
+    url: "https://ai.googleblog.com/feeds/posts/default",
   },
   {
-    name: "Lenny’s Newsletter",
-    url: "https://www.lennysnewsletter.com/feed",
+    name: "ProductLed Blog",
+    url: "https://productled.com/feed/",
   },
   {
-    name: "Product-Led Blog",
-    url: "https://productled.com/blog/rss.xml",
+    name: "Mind the Product",
+    url: "https://www.mindtheproduct.com/feed/",
   },
   {
     name: "Product Coalition",
-    url: "https://productcoalition.com/feed",
+    url: "https://medium.com/feed/product-coalition",
   },
   {
-    name: "Inside Intercom",
-    url: "https://www.intercom.com/blog/feed/",
+    name: "Towards Data Science - AI",
+    url: "https://towardsdatascience.com/feed/tagged/artificial-intelligence",
   },
+  {
+    name: "MIT Technology Review - AI",
+    url: "https://www.technologyreview.com/feed/",
+  }
 ];
 
 export default async function handler(req, res) {
