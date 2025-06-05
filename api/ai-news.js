@@ -4,13 +4,21 @@ export default async function handler(req, res) {
   try {
     const rss = await fetch(url);
     const text = await rss.text();
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, "text/xml");
-    const items = Array.from(xml.querySelectorAll("item")).slice(0, 5);
+
+    // Note: DOMParser is not available in Node.js environment,
+    // so we need an alternative parser like 'xml2js' or 'fast-xml-parser'.
+
+    // To keep it simple, let's parse XML to JSON using 'fast-xml-parser'.
+
+    const { XMLParser } = require('fast-xml-parser');
+    const parser = new XMLParser();
+    const jsonObj = parser.parse(text);
+
+    const items = jsonObj.rss.channel.item.slice(0, 5);
 
     const news = items.map(item => ({
-      title: item.querySelector("title")?.textContent,
-      link: item.querySelector("link")?.textContent,
+      title: item.title,
+      link: item.link,
     }));
 
     res.setHeader("Access-Control-Allow-Origin", "*");
